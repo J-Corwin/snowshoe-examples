@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <title>SnowShoe Node/jQuery Example</title>
+  <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
+  <link rel="stylesheet" href="/static/css/snowshoe-sample.css">
+  <style media="screen">
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+      background-color: orange;
+    }
+    #stampscreen {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Snowshoe progress bar animation -->
+  <div id="snowshoe-progress-bar"></div>
+  <!-- Snowshoe messages -->
+  <div id="snowshoe-messages"></div>
+  <!-- Snowshoe stamp screen -->
+  <div id="stampscreen"></div>
+
+  <script>
+  var stampScreenInitData = {
+    "postUrl": "/",
+    "stampScreenElmId": "stampscreen",
+    "progressBarOn": true,
+    "postViaAjax": true,
+    "messages": {
+      "userTraining" : "<h3>Keep holding</h3>",
+      "insufficientPoints" : "<h3>Try again!</h3>"
+    },
+    "success": function(response){
+      $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
+      $("#snowshoe-messages").append("<h3> serial: " + response.stamp.serial + "</h3>");
+    },
+    "error": function(response){
+      $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
+      $("#snowshoe-messages").empty();
+      $("#snowshoe-messages").append("<h3>That stamp was not found. Please try again!</h3>");
+    }
+  }
+  </script>
+  <script src="//cdn.snowshoestamp.com/snowshoe-jquery/0.3.0/jquery.snowshoe.min.js"></script>
+</body>
+</html>
